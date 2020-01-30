@@ -4,6 +4,6 @@ const userCtrl = require('./auth.ctrl');
 
 auth.post('/login',userCtrl.login);
 auth.post('/register',userCtrl.register);
-auth.post('/sam', userCtrl.sam)
+auth.get('/sam', userCtrl.sam)
 
 module.exports = auth;

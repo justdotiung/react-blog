@@ -1,22 +1,27 @@
 const User = require("../../models/user");
 
 const login = (req, res) => {
-  console.log(req.state)
-  console.log(ctx)
-  console.log(req.body);
+  //console.log(req.body);
   const { name, password } = req.body;
 
   if (!name || !password) return res.status(401).json({ error: "not enough" });
-  User.findByName(name)
+  let user = User.findByName(name)
     .then(exists => {
       if (!exists) return res.status(401).json({ error: "not name" });
       const isMatch = exists.comparePassword(password);
-      if (isMatch)
-        return res.status(401).json({ error: "password mismatch" });
+      if (isMatch) return res.status(401).json({ error: "password mismatch" });
       return exists;
-    }).then(user => res.status(200).json(user))
+    })
+    .then(user =>{ 
+      const token = user.generateToKen();
+      res.cookie("access_token", token, {
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 24 * 7
+      });
+      res.status(200).json(user)
+    })
     .catch(e => console.log(e));
-};
+  };
 
 const register = (req, res) => {
   console.log(req.body);
@@ -35,11 +40,16 @@ const register = (req, res) => {
         .catch(e => console.log(e));
     })
     .catch(e => console.log(e));
+  const token = user.generateToKen();
+  res.cookie("access_token", token, {
+    httpOnly: true,
+    maxAge: 1000 * 60 * 60 * 24 * 7
+  });
 };
 
-const sam = ctx =>{
-  console.log(ctx.header)
-}
+const sam = ctx => {
+  
+};
 module.exports = {
   login,
   register,
