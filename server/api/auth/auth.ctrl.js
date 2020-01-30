@@ -1,6 +1,22 @@
 const User = require("../../models/user");
 
-const login = (req, res) => {};
+const login = (req, res) => {
+  console.log(req.state)
+  console.log(ctx)
+  console.log(req.body);
+  const { name, password } = req.body;
+
+  if (!name || !password) return res.status(401).json({ error: "not enough" });
+  User.findByName(name)
+    .then(exists => {
+      if (!exists) return res.status(401).json({ error: "not name" });
+      const isMatch = exists.comparePassword(password);
+      if (isMatch)
+        return res.status(401).json({ error: "password mismatch" });
+      return exists;
+    }).then(user => res.status(200).json(user))
+    .catch(e => console.log(e));
+};
 
 const register = (req, res) => {
   console.log(req.body);
@@ -21,7 +37,11 @@ const register = (req, res) => {
     .catch(e => console.log(e));
 };
 
+const sam = ctx =>{
+  console.log(ctx.header)
+}
 module.exports = {
   login,
-  register
+  register,
+  sam
 };

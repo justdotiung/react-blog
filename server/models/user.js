@@ -17,9 +17,15 @@ UserSchema.pre("save", function(next) {
   next(err);
 });
 
-UserSchema.statics.findByName = function(name){
-    return this.findOne({name});
-}
+UserSchema.methods.comparePassword = function(password) {
+  bcrypt.compare(password, this.password).then(function(res) {
+    console.log(res);
+  });
+};
+
+UserSchema.statics.findByName = function(name) {
+  return this.findOne({ name });
+};
 const User = mongoose.model("User", UserSchema);
 
 module.exports = User;
