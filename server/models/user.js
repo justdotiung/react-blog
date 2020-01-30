@@ -7,8 +7,8 @@ const UserSchema = mongoose.Schema({
 });
 
 UserSchema.pre("save", function(next) {
-  const err = new Error("bcrypt false");
- 
+  const err = new Error("pre hooks Error");
+
   if (this.password) {
     const hash = bcrypt.hashSync(this.password, 10);
     this.password = hash;
@@ -17,6 +17,9 @@ UserSchema.pre("save", function(next) {
   next(err);
 });
 
+UserSchema.statics.findByName = function(name){
+    return this.findOne({name});
+}
 const User = mongoose.model("User", UserSchema);
 
 module.exports = User;
