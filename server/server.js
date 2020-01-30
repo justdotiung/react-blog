@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 4000;
@@ -10,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 mongoose
-.connect("mongodb://localhost:27017/blogTest", {
+.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
