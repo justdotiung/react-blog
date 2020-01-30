@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Screen from "./Screen";
+import ScreenHelper from "./ScreenHelper";
 
 const FooterBlock = styled.div`
   position: fixed;
@@ -11,7 +11,7 @@ const FooterBlock = styled.div`
   box-shadow: 0px 10px 2px rgba(0, 0, 255, 0.2);
   `;
 
-const StyledFooter = styled(Screen)`
+const StyledFooter = styled(ScreenHelper)`
   background: #0e807b;
   height: 4rem;
   `;

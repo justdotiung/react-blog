@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import Screen from "../common/Screen";
+import ScreenHelper from "../common/ScreenHelper";
 
-const BlogListBlock = styled(Screen)`
+const BlogListBlock = styled(ScreenHelper)`
   --height: 800px;
   background: #c5fcfa;
 `;

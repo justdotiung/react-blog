@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const ScreenBlock = styled.div`
+const ScreenHelperBlock = styled.div`
 width: 1024;
 margin: 0 auto;
 
@@ -19,12 +19,12 @@ margin: 0 auto;
 
 `;
 
-const Screen = ({children, ...porps}) => {
+const ScreenHelper = ({children, ...porps}) => {
     return (
-        <ScreenBlock {...porps}>
+        <ScreenHelperBlock {...porps}>
             {children}
-        </ScreenBlock>
+        </ScreenHelperBlock>
     );
 };
 
-export default Screen;
+export default ScreenHelper;

@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import Screen from "./Screen";
+import ScreenHelper from "./ScreenHelper";
 
 const HeaderBlock = styled.div`
   position: fixed;
   width: 100%;
   opacity:0.7;
   `;
-const StyledHeader = styled(Screen)`
+const StyledHeader = styled(ScreenHelper)`
   height: 4.5rem;
   display: flex;
   background: #88d1ce;
