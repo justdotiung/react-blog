@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import LoginForm from "../../components/user/LoginForm";
+import AuthForm from "../../components/user/AuthForm";
 import { connect } from "react-redux";
-import { changeField } from "../../modules/auth";
-import { userValidation } from '../../modules/user';
+import { changeField, initform } from "../../modules/auth";
+import { userValidation } from "../../modules/user";
 
-const LoginFormContainer = ({ form, changeField, }) => {
+const LoginFormContainer = ({ form, changeField }) => {
   const onChange = e => {
     const { name, value } = e.target;
     changeField({
@@ -14,21 +14,27 @@ const LoginFormContainer = ({ form, changeField, }) => {
     });
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = e => {
     e.preventDefault();
     const { name, password } = form;
-    console.log(name)
+    console.log(name);
     console.log(password);
-    localStorage.setItem('user', JSON.stringify(form));
-  }
+    localStorage.setItem("user", JSON.stringify(form));
+  };
 
   useEffect(() => {
-     
-          console.log(localStorage.getItem('user'));
-    
-  },[localStorage])
+    initform("login");
+    console.log(localStorage.getItem("user"));
+  }, [localStorage, initform]);
 
-  return <LoginForm form={form} onChange={onChange} onSubmit={onSubmit} />;
+  return (
+    <AuthForm
+      type="login"
+      form={form}
+      onChange={onChange}
+      onSubmit={onSubmit}
+    />
+  );
 };
 
 export default connect(
