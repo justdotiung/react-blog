@@ -5,23 +5,23 @@ const login = (req, res) => {
   const { name, password } = req.body;
 
   if (!name || !password) return res.status(401).json({ error: "not enough" });
-  let user = User.findByName(name)
+  User.findByName(name)
     .then(exists => {
       if (!exists) return res.status(401).json({ error: "not name" });
       const isMatch = exists.comparePassword(password);
       if (isMatch) return res.status(401).json({ error: "password mismatch" });
       return exists;
     })
-    .then(user =>{ 
+    .then(user => {
       const token = user.generateToKen();
       res.cookie("access_token", token, {
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24 * 7
       });
-      res.status(200).json(user)
+      res.status(200).json(user);
     })
     .catch(e => console.log(e));
-  };
+};
 
 const register = (req, res) => {
   console.log(req.body);
@@ -47,11 +47,23 @@ const register = (req, res) => {
   });
 };
 
-const sam = ctx => {
-  
+const check = (req, res) => {
+  const { token } = req;
+  console.log(token);
+
+  if (!token) {
+    return res.status(401).json({ error: "error" });
+  }
+  return res.status(200).json(token);
 };
+
+const logout = (req, res) => {
+  res.cookie('access_token').status(200).json({message: 'logout'});
+  
+}
 module.exports = {
   login,
   register,
-  sam
+  check,
+  logout
 };

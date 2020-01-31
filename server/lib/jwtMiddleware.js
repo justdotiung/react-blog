@@ -1,18 +1,28 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
+const User = require("../models/user");
 
-const jwtMiddleware = (req, res, next) =>{
-    console.log(1);
-    const token = req.cookies.access_token;
-    console.log(token)
-    if(!token) return next();
-    try{
-        console.log(2);
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        console.log(decoded);
-        return next();
-    }catch(e) {
-        return next();
+const jwtMiddleware = async (req, res, next) => {
+  const token = req.cookies.access_token;
+  if (!token) return next();
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.token = {
+      _id: decoded._id,
+      name: decoded.name
+    };
+    const now = Math.floor(Date.now() / 1000);
+    if (decoded.exp - now < 60 * 60 * 24) {
+      const user = User.findById(decoded._id);
+      const token = user.generateToKen();
+      res.cookie("access_token", token, {
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+        httpOnly: true
+      });
     }
-}
+    return next();
+  } catch (e) {
+    return next();
+  }
+};
 
 module.exports = jwtMiddleware;
