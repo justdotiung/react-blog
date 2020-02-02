@@ -45,7 +45,7 @@ const StyledLink = styled(Link)`
 `;
 
 const LoginForm = ({type, form, onChange, onSubmit }) => {
-  console.log(type);
+  console.log();
   return (
     <LoginFormBlock onSubmit={onSubmit}>
       <StyledInput

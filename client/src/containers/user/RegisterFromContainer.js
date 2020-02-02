@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { changeField, initform } from "../../modules/auth";
+import { changeField, initform, register } from "../../modules/auth";
 import AuthForm from "../../components/user/AuthForm";
 
-const RegisterFromContainer = ({ changeField, form }) => {
+const RegisterFromContainer = ({ changeField, form, user, error, register }) => {
   const onChange = e => {
     const { name, value } = e.target;
     changeField({
@@ -15,20 +15,45 @@ const RegisterFromContainer = ({ changeField, form }) => {
 
   const onSubmit = e => {
     e.preventDefault();
+    console.log('e');
+    console.log(form);
+    const { name, password } = form;
+    register({name, password});
   };
+
   useEffect(() => {
     initform("register");
   }, [initform]);
 
-  return <AuthForm type="register" onChange={onChange} form={form} />;
+  useEffect(() => {
+    if (user) {
+      console.log("회원가입 성공");
+    }
+    if (error) {
+      console.log(error);
+      return;
+    }
+  });
+
+  return (
+    <AuthForm
+      type="register"
+      onChange={onChange}
+      form={form}
+      onSubmit={onSubmit}
+    />
+  );
 };
 
 export default connect(
   ({ auth }) => ({
-    form: auth.register
+    form: auth.register,
+    user: auth.auth.user,
+    error: auth.auth.error
   }),
   {
     changeField,
-    initform
+    initform,
+    register
   }
 )(RegisterFromContainer);

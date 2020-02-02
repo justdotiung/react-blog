@@ -1,6 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
-import { put, call, takeLatest } from 'redux-saga/effects';
-import * as authAPI from "../lib/api/auth"; 
+import { put, call, takeLatest } from "redux-saga/effects";
+import * as authAPI from "../lib/api/auth";
 
 const initialState = {
   register: {
@@ -11,15 +11,20 @@ const initialState = {
   login: {
     name: "",
     password: ""
+  },
+  loading: false,
+  auth: {
+    user: null,
+    error: null
   }
 };
 
 const CHANGE_FIELD = "auth/CHANGE_FIELD";
 const INIT_FORM = "auth/INIT_FORM";
 
-const REGISER = 'auth/REGISER';
-const REGISER_SUCCESS = 'auth/REGISTER_SUCCESS';
-const REGISER_FAILURE = 'auth.REGISTER_FAILURE';
+const REGISER = "auth/REGISER";
+const REGISER_SUCCESS = "auth/REGISTER_SUCCESS";
+const REGISER_FAILURE = "auth.REGISTER_FAILURE";
 
 export const changeField = createAction(
   CHANGE_FIELD,
@@ -32,28 +37,32 @@ export const changeField = createAction(
 
 export const initform = createAction(INIT_FORM, form => form);
 
-export const register = createAction( REGISER, { name, password });
+export const register = createAction(REGISER, ({ name, password }) => ({
+  name,
+  password
+}));
 
 function* registerSaga(action) {
+  console.log(action)
   yield put(register);
-  try{
-    const response = yield call(authAPI.registser, action.payload);
+  console.log(1)
+  try {
+    const response = yield call(authAPI.register, action.payload);
     yield put({
       type: REGISER_SUCCESS,
-      payload: response.data,
-    })
-
-  }catch (e){
-    yield put({ 
+      payload: response.data
+    });
+  } catch (e) {
+    yield put({
       type: REGISER_FAILURE,
       error: true,
-      payload: e,
+      payload: e
     });
-  }  
+  }
 }
 
 export function* authSaga() {
-  yield takeLatest(registerSaga);
+  yield takeLatest(REGISER, registerSaga);
 }
 
 const auth = handleActions(
@@ -68,6 +77,28 @@ const auth = handleActions(
     [INIT_FORM]: (state, { payload: form }) => ({
       ...state,
       [form]: initialState[form]
+    }),
+    [REGISER]: state => ({
+      ...state,
+      loading: true,
+      
+    }),
+    [REGISER_SUCCESS]: (state, action) => ({
+      ...state,
+      auth: {
+        ...state.auth,
+        user: action.payload,
+        error: null
+      },
+      loading: false
+    }),
+    [REGISER_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      loading: false,
+      auth: {
+        ...state.auth,
+        error
+      }
     })
   },
   initialState
