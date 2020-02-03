@@ -5,13 +5,13 @@ import auth, { authSaga } from "./auth";
 
 const rootReducer = combineReducers({
   user,
-  auth
+  auth,
+
 });
 
-export function* rootSaga() {
+export function* rootSaga(){
   yield all([authSaga()]);
-   
-} 
+};
 
 
 export default rootReducer;

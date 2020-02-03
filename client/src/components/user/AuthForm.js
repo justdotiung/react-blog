@@ -44,7 +44,15 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const LoginForm = ({type, form, onChange, onSubmit }) => {
+const StyledSpan = styled.span`
+display:flex;
+margin-top: 1.5rem;
+justify-content:center;
+
+  color: red;
+`;
+
+const LoginForm = ({type, form, onChange, onSubmit, error }) => {
   console.log();
   return (
     <LoginFormBlock onSubmit={onSubmit}>
@@ -70,6 +78,7 @@ const LoginForm = ({type, form, onChange, onSubmit }) => {
           value={form.passwordCheck}
         />
       )}
+      {error && <StyledSpan>{error}</StyledSpan>}
       <StyledButton authButton>로그인</StyledButton>
       <div className="link-block">
         <StyledLink to="/register">회원가입하기</StyledLink>

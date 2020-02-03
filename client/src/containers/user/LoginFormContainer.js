@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import AuthForm from "../../components/user/AuthForm";
 import { connect } from "react-redux";
-import { changeField, initform } from "../../modules/auth";
+import { changeField, initform, login } from "../../modules/auth";
 import { userValidation } from "../../modules/user";
 
-const LoginFormContainer = ({ form, changeField }) => {
+const LoginFormContainer = ({ form, changeField, login, auth, authError }) => {
   const onChange = e => {
     const { name, value } = e.target;
     changeField({
@@ -19,13 +19,23 @@ const LoginFormContainer = ({ form, changeField }) => {
     const { name, password } = form;
     console.log(name);
     console.log(password);
-    localStorage.setItem("user", JSON.stringify(form));
+    login({name, password});
   };
 
   useEffect(() => {
+    if(authError){
+      console.log(authError.response)
+      return;
+    }
     initform("login");
-    console.log(localStorage.getItem("user"));
-  }, [localStorage, initform]);
+  }, [initform,auth]);
+
+useEffect(() => {
+  if(authError){
+    console.log(authError.response)
+    return;
+  }
+},[authError])
 
   return (
     <AuthForm
@@ -40,10 +50,13 @@ const LoginFormContainer = ({ form, changeField }) => {
 export default connect(
   ({ auth, user }) => ({
     form: auth.login,
-    user: user.user
+    user: user.user,
+    auth: auth.auth.user,
+    authError: auth.auth.error
   }),
   {
     changeField,
-    userValidation
+    userValidation,
+    login
   }
 )(LoginFormContainer);

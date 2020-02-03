@@ -14,14 +14,14 @@ UserSchema.pre("save", function(next) {
     const hash = bcrypt.hashSync(this.password, 10);
     this.password = hash;
     next();
+    return;
   }
+
   next(err);
 });
 
 UserSchema.methods.comparePassword = function(password) {
-  bcrypt.compare(password, this.password).then(function(res) {
-    console.log(res);
-  });
+  return bcrypt.compare(password, this.password);
 };
 
 UserSchema.statics.findByName = function(name) {

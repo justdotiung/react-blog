@@ -10,6 +10,7 @@ const buttonStyle = css`
   width: 100%;
   text-align: center;
   padding: 0.7rem 0;
+
   cursor: pointer;
   &:hover {
     background: #aad8f2;
@@ -31,10 +32,17 @@ const StyledButton = styled.button`
 
 const StyledLink = styled(Link)`
   ${buttonStyle}
+  color: inherit;
+  text-decoration: none;
 `;
 
 const Button = props => {
-  return props.to ? <StyledLink {...props} /> : <StyledButton {...props} />;
+  return props.to ? (
+    <StyledLink {...props} /> 
+    // <StyledLink {...props} auth={props.authButton ? "ㄴ" : "ㄴㅇ" }//a태그는 true 값이 props로 설정되는것을 허용하지않음. 그렇기에 삼항연산자를 사용 
+  ) : (
+    <StyledButton {...props} />
+  );
 };
 
 export default Button;
