@@ -1,25 +1,22 @@
 const User = require("../../models/user");
 
 const login = (req, res) => {
-  console.log(req.body);
   const { name, password } = req.body;
 
-  if (!name || !password) return res.status(401).json({ error: "not enough" });
+  if (!name || !password) return res.status(401).json({ error: "아이디 혹은 비밀번호를 입력해주세요" });
   User.findByName(name)
     .then(exists => {
-      if (!exists) return res.status(401).json({ error: "not name" });
+      if (!exists) return res.status(401).json({ error: "존재하지않는 아이디입니다." });
       else {
         exists.comparePassword(password).then(isMatch => {
           if (!isMatch)
-            return res.status(401).json({ error: "password mismatch" });
+            return res.status(401).json({ error: "비밀번호가 일치하지 않습니다." });
           else {
             const token = exists.generateToKen();
-            console.log('toke', token)
             res.cookie("access_token", token, {
               httpOnly: true,
               maxAge: 1000 * 60 * 60 * 24 * 7
             });
-            console.log(123)
             return res.status(200).json(exists);
           }
         });

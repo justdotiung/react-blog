@@ -1,41 +1,61 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import AuthForm from "../../components/user/AuthForm";
 import { connect } from "react-redux";
 import { changeField, initform, login } from "../../modules/auth";
-import { userValidation } from "../../modules/user";
+import { withRouter } from "react-router-dom";
+import { userCheck } from "../../modules/check";
 
-const LoginFormContainer = ({ form, changeField, login, auth, authError }) => {
-  const onChange = e => {
-    const { name, value } = e.target;
-    changeField({
-      form: "login",
-      key: name,
-      value
-    });
-  };
+const LoginFormContainer = ({
+  history,
+  form,
+  changeField,
+  login,
+  auth,
+  authError,
+  userCheck,
+  check
+}) => {
+  const [error, setError] = useState(null);
+  const onChange = useCallback(
+    e => {
+      const { name, value } = e.target;
+      changeField({
+        form: "login",
+        key: name,
+        value
+      });
+    },
+    [changeField]
+  );
 
   const onSubmit = e => {
     e.preventDefault();
     const { name, password } = form;
-    console.log(name);
-    console.log(password);
-    login({name, password});
+    login({ name, password });
   };
 
   useEffect(() => {
-    if(authError){
-      console.log(authError.response)
+    initform("login");
+
+    if (authError) {
+      const res = authError.response;
+      if (res.status === 401) {
+        setError(res.data.error);
+      }
       return;
     }
-    initform("login");
-  }, [initform,auth]);
+    if (auth) {
+      userCheck();
+      console.log(check);
+      if (check) {
+        localStorage.setItem("user", JSON.stringify(check));
+        setError(null);
+        history.push("/");
+      }
+    }
+  }, [authError, auth, check, history, userCheck]);
 
-useEffect(() => {
-  if(authError){
-    console.log(authError.response)
-    return;
-  }
-},[authError])
+  useEffect(() => {}, []);
 
   return (
     <AuthForm
@@ -43,20 +63,21 @@ useEffect(() => {
       form={form}
       onChange={onChange}
       onSubmit={onSubmit}
+      error={error}
     />
   );
 };
 
 export default connect(
-  ({ auth, user }) => ({
+  ({ auth, check }) => ({
     form: auth.login,
-    user: user.user,
     auth: auth.auth.user,
-    authError: auth.auth.error
+    authError: auth.auth.error,
+    check: check.user
   }),
   {
     changeField,
-    userValidation,
-    login
+    login,
+    userCheck
   }
-)(LoginFormContainer);
+)(withRouter(LoginFormContainer));

@@ -39,7 +39,7 @@ const StyledLink = styled(Link)`
 const Button = props => {
   return props.to ? (
     <StyledLink {...props} /> 
-    // <StyledLink {...props} auth={props.authButton ? "ㄴ" : "ㄴㅇ" }//a태그는 true 값이 props로 설정되는것을 허용하지않음. 그렇기에 삼항연산자를 사용 
+    // <StyledLink {...props} auth={props.authButton ? "true" : "false" }//a태그는 true 값이 props로 설정되는것을 허용하지않음. 그렇기에 삼항연산자를 사용 
   ) : (
     <StyledButton {...props} />
   );

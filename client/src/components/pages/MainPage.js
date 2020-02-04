@@ -1,12 +1,12 @@
 import React from 'react';
 import BlogList from '../list/BlogList';
-import Header from '../common/Header';
 import Footer from '../common/Footer';
+import HeaderContainer from '../../containers/commons/HeaderContainer';
 
 const MainPage = () => {
     return (
         <>
-            <Header />
+            <HeaderContainer />
             <BlogList />
             <Footer />
         </>

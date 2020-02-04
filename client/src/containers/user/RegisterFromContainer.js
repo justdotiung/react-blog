@@ -53,10 +53,11 @@ const RegisterFromContainer = ({
       setError(authError.response.data.error);
       return;
     }
-  },[user]);
+  },[user,history,authError]);
+
   useEffect(() => {
     initform("register");
-  }, [initform]);
+  }, []);
 
   return (
     <AuthForm
