@@ -6,7 +6,8 @@ const jwtMiddleware = async (req, res, next) => {
   if (!token) return next();
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.token = {
+    req.state={};
+    req.state.token = {
       _id: decoded._id,
       name: decoded.name
     };

@@ -93,7 +93,7 @@ const register = async (req, res) => {
 };
 
 const check = (req, res) => {
-  const { token } = req;
+  const { token } = req.state;
   console.log(token);
 
   if (!token) {
