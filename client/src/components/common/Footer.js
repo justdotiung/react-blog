@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import ScreenHelper from "./ScreenHelper";
+import Button from "../common/Button";
 
 const FooterBlock = styled.div`
   position: fixed;
@@ -8,13 +9,15 @@ const FooterBlock = styled.div`
   bottom: 0;
   width: 100%;
   margin-bottom: 0.05rem;
-  box-shadow: 0px 10px 2px rgba(0, 0, 255, 0.2);
+  z-index:2;
   `;
 
-const StyledFooter = styled(ScreenHelper)`
+const StyledFooter = styled(Button)`
   background: #0e807b;
   height: 4rem;
+  font-size: 2rem;
   `;
+
 const Spacer = styled.div`
   height: 4rem;
 `;
@@ -23,7 +26,7 @@ const Footer = () => {
     <>
       <Spacer />
       <FooterBlock>
-        <StyledFooter>푸터</StyledFooter>
+        <StyledFooter authButton>등록하기</StyledFooter>
       </FooterBlock>
     </>
   );

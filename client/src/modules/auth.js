@@ -22,9 +22,9 @@ const initialState = {
 const CHANGE_FIELD = "auth/CHANGE_FIELD";
 const INIT_FORM = "auth/INIT_FORM";
 
-const REGISER = "auth/REGISER";
-const REGISER_SUCCESS = "auth/REGISTER_SUCCESS";
-const REGISER_FAILURE = "auth.REGISTER_FAILURE";
+const REGISTER = "auth/REGISTER";
+const REGISTER_SUCCESS = "auth/REGISTER_SUCCESS";
+const REGISTER_FAILURE = "auth/REGISTER_FAILURE";
 
 const LOGIN = "auth/LOGIN";
 const LOGIN_SUCCESS = "auth/LOGIN_SUCCESS";
@@ -45,7 +45,7 @@ export const initform = createAction(INIT_FORM, form => form);
 export const logout = createAction(LOGOUT);
 
 //======= saga함수===============================================================
-export const register = createAction(REGISER, ({ name, password }) => ({
+export const register = createAction(REGISTER, ({ name, password }) => ({
   name,
   password
 }));
@@ -54,11 +54,11 @@ export const login = createAction(LOGIN, ({ name, password }) => ({
   password
 }));
 
-const registerSaga = createSaga(authAPI.register, REGISER);
+const registerSaga = createSaga(authAPI.register, REGISTER);
 const loginSaga = createSaga(authAPI.login, LOGIN);
 
 export function* authSaga() {
-  yield takeLatest(REGISER, registerSaga);
+  yield takeLatest(REGISTER, registerSaga);
   yield takeLatest(LOGIN, loginSaga);
 }
 
@@ -77,7 +77,7 @@ const auth = handleActions(
       ...state,
       [form]: initialState[form]
     }),
-    [REGISER_SUCCESS]: (state, { payload: user }) => ({
+    [REGISTER_SUCCESS]: (state, { payload: user }) => ({
       ...state,
       auth: {
         ...state.auth,
@@ -85,7 +85,7 @@ const auth = handleActions(
         error: null
       }
     }),
-    [REGISER_FAILURE]: (state, { payload: error }) => ({
+    [REGISTER_FAILURE]: (state, { payload: error}) => ({
       ...state,
       auth: {
         ...state.auth,

@@ -2,8 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 const ScreenHelperBlock = styled.div`
-width: 1024;
+
 margin: 0 auto;
+padding-left:1rem;
+padding-right:1rem;
 
 @media (max-width: 1024px) {
     width: 768px;

@@ -7,34 +7,35 @@ import { Link } from "react-router-dom";
 const HeaderBlock = styled.div`
   position: fixed;
   width: 100%;
-  opacity: 0.7;
+  background: white;
   border-bottom: 2px solid black;
-  opacity: 0.7;
+  opacity: 0.9;
+  z-index: 2;
 `;
 const StyledHeader = styled(ScreenHelper)`
   height: 4.5rem;
   display: flex;
   justify-content: space-between;
   .button-block {
-    margin-top: auto;
-    margin-bottom: 1rem;
-    margin-left: auto;
-    margin-right: 1rem;
+    display: flex;
+    justify-content:flex-end;
+    margin: auto 1rem 1rem auto;
+    width: 300px;
   }
 `;
 const Space = styled.div`
   height: 4.5rem;
 `;
 const StyledButton = styled(Button)`
-  padding: 4px 10px;
-  font-size: 0.74rem;
-  height: 26px;
+  padding: 3px 10px 4px;
+  margin-left: 10px;
+  margin-top:auto;
 `;
 
 const StyledLink = styled(Link)`
   padding-left: 1rem;
   margin-bottom: 0;
-  font-size: 2.7rem; 
+  font-size: 2.7rem;
   font-weight: 700;
   color: black;
   text-decoration: none;
@@ -50,9 +51,12 @@ const Header = ({ user, onClick }) => {
           <StyledLink to="/">BLOG</StyledLink>
           <div className="button-block">
             {user ? (
-              <StyledButton onClick={onClick}>로그아웃</StyledButton>
+              <>
+                <Button to="/writer" post>쓰기</Button>
+                <StyledButton onClick={onClick} post >로그아웃</StyledButton>
+              </>
             ) : (
-              <StyledButton to="/login">로그인</StyledButton>
+              <Button to="/login" post>로그인</Button>
             )}
           </div>
         </StyledHeader>

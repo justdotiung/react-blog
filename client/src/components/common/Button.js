@@ -24,6 +24,18 @@ const buttonStyle = css`
       font-size: 1.2rem;
       font-weight: bold;
     `}
+  ${props =>
+    props.post &&
+    css`
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      width: 100px;
+      font-size:1.2rem;
+      height: 32px;
+      font-weight:700;
+    `}
 `;
 
 const StyledButton = styled.button`
@@ -32,15 +44,13 @@ const StyledButton = styled.button`
 
 const StyledLink = styled(Link)`
   ${buttonStyle}
-  color: inherit;
-  text-decoration: none;
 `;
 
 const Button = props => {
   return props.to ? (
-    <StyledLink {...props} /> 
-    // <StyledLink {...props} auth={props.authButton ? "true" : "false" }//a태그는 true 값이 props로 설정되는것을 허용하지않음. 그렇기에 삼항연산자를 사용 
+    <StyledLink {...props} post={props.post  ? 1 : 0} />
   ) : (
+    // <StyledLink {...props} auth={props.authButton ? "true" : "false" }//a태그는 true 값이 props로 설정되는것을 허용하지않음. 그렇기에 삼항연산자를 사용
     <StyledButton {...props} />
   );
 };

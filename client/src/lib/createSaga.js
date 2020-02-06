@@ -14,11 +14,14 @@ function createSaga(req, type) {
 
     try {
       const response = yield call(req, action.payload);
+      console.log(response);
+      console.log(SUCCESS);
       yield put({
         type: SUCCESS,
         payload: response.data
       });
-    } catch (e) {
+    } catch (e) { 
+      console.log(e);
       yield put({
         type: FAILURE,
         error: true,

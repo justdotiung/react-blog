@@ -45,14 +45,14 @@ const StyledLink = styled(Link)`
 `;
 
 const StyledSpan = styled.span`
-display:flex;
-margin-top: 1.5rem;
-justify-content:center;
+  display: flex;
+  margin-top: 1.5rem;
+  justify-content: center;
 
   color: red;
 `;
 
-const LoginForm = ({type, form, onChange, onSubmit, error }) => {
+const LoginForm = ({ type, form, onChange, onSubmit, error }) => {
   console.log();
   return (
     <LoginFormBlock onSubmit={onSubmit}>
@@ -69,7 +69,7 @@ const LoginForm = ({type, form, onChange, onSubmit, error }) => {
         onChange={onChange}
         value={form.password}
       />
-      {type === 'register' && (
+      {type === "register" && (
         <StyledInput
           name="passwordCheck"
           type="password"
@@ -81,7 +81,11 @@ const LoginForm = ({type, form, onChange, onSubmit, error }) => {
       {error && <StyledSpan>{error}</StyledSpan>}
       <StyledButton authButton>로그인</StyledButton>
       <div className="link-block">
-        <StyledLink to="/register">회원가입하기</StyledLink>
+        {type === "register" ? (
+          <StyledLink to="/login">로그인</StyledLink>
+        ) : (
+          <StyledLink to="/register">회원가입하기</StyledLink>
+        )}
         {/* <StyledLink to="/register">비밀번호찾기</StyledLink> */}
       </div>
     </LoginFormBlock>

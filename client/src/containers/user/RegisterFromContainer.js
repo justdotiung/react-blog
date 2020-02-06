@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { changeField, initform, register } from "../../modules/auth";
 import AuthForm from "../../components/user/AuthForm";
 import { withRouter } from "react-router-dom";
+import { userCheck } from "../../modules/check";
 
 const RegisterFromContainer = ({
   changeField,
@@ -10,6 +11,7 @@ const RegisterFromContainer = ({
   user,
   authError,
   register,
+  userCheck,
   history
 }) => {
   const [error, setError] = useState("");
@@ -29,35 +31,47 @@ const RegisterFromContainer = ({
     // console.log(form);
     const { name, password, passwordCheck } = form;
     if (!password) {
+      
       setError("비밀번호를 입력하세요");
       return;
     }
-    if (!name) {
-      setError("아이디를 입력하세요");
+    if (!name || name.length < 2) {
+      setError("아이디는 최소 2자 이상입니다.");
       return;
     }
     if (password !== passwordCheck) {
       setError("비밀번호가 일치하지않습니다.");
       changeField({form:'register', key:'passwordCheck', value:''})
+      changeField({form:'register', key:'password', value:''})
       return;
     }
     register({ name, password });
   };
 
   useEffect(() => {
+    console.log(1);
     if (user) {
       console.log("회원가입 성공");
+      userCheck(user)
       history.push('/');
     }
+    
+  },[user,history,]);
+  
+  useEffect(() => {
+    initform("register");
+    setError(null);
+  }, [setError]);
+  
+  useEffect(()=>{
+    console.log(authError);
     if (authError) {
+      
+      console.log("회원가입 성공");
       setError(authError.response.data.error);
       return;
     }
-  },[user,history,authError]);
-
-  useEffect(() => {
-    initform("register");
-  }, []);
+  },[authError])
 
   return (
     <AuthForm
@@ -79,6 +93,7 @@ export default connect(
   {
     changeField,
     initform,
-    register
+    register,
+    userCheck
   }
 )(withRouter(RegisterFromContainer));
