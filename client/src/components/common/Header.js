@@ -43,7 +43,7 @@ const StyledLink = styled(Link)`
   align-items: center;
 `;
 
-const Header = ({ user, onClick }) => {
+const Header = ({ user, onClick, ...props}) => {
   return (
     <>
       <HeaderBlock>
@@ -52,7 +52,7 @@ const Header = ({ user, onClick }) => {
           <div className="button-block">
             {user ? (
               <>
-                <Button to="/writer" post>쓰기</Button>
+                {props.writer || <Button to="/writer" post>쓰기</Button>}
                 <StyledButton onClick={onClick} post >로그아웃</StyledButton>
               </>
             ) : (

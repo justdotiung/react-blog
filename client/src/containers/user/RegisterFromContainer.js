@@ -52,7 +52,7 @@ const RegisterFromContainer = ({
     console.log(1);
     if (user) {
       console.log("회원가입 성공");
-      userCheck(user)
+      userCheck()
       history.push('/');
     }
     
