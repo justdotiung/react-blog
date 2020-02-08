@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import styled from "styled-components";
 import ScreenHelper from "../common/ScreenHelper";
 
@@ -49,27 +49,31 @@ const TagItem = React.memo(({ tag, onRemove }) => (
 
 const TagList = React.memo(({ tags, onRemove }) => (
   <TagListWrapper>
+       {console.log(tags)}
     {tags.map(tag => (
       <TagItem key={tag} tag={tag} onRemove={onRemove} />
     ))}
   </TagListWrapper>
 ));
 
-const Tags = () => {
+const Tags = ({currentTags, changeFeild}) => {
   const [value, setValue] = useState("");
-  const [tags, setTags] = useState([]);
-
+  const [localTags, setLocalTags] = useState([]);
+console.log(currentTags);
   const insertTag = useCallback(
     tag => {
-      if (!tag) return;
-      if (tags.includes(tag)) return;
-      setTags([...tags, tag]);
+        console.log(localTags)
+        if (!tag) return;
+        if (localTags.includes(tag)) return;
+        setLocalTags([...localTags, tag]);
+        changeFeild(localTags)
+        console.log(localTags)
     },
-    [tags]
-  );
-
-  const onChange = useCallback(e => {
-    setValue(e.target.value);
+    [localTags, changeFeild]
+    );
+    
+    const onChange = useCallback(e => {
+        setValue(e.target.value);
   }, []);
 
   const onSubmit = useCallback(
@@ -77,24 +81,29 @@ const Tags = () => {
       e.preventDefault();
       insertTag(value.trim());
       setValue("");
+     
     },
     [value, insertTag]
   );
 
   const onRemove = useCallback(
     val => {
-      setTags(tags.filter(tag => tag !== val));
+        setLocalTags(localTags.filter(tag => tag !== val));
+      changeFeild(localTags)
     },
-    [tags]
+    [localTags, changeFeild]
   );
-
+useEffect((
+)=> {
+console.log(currentTags);
+},[currentTags])
   return (
     <TagsBlock>
       <TagsForm onSubmit={onSubmit}>
         <input placeholder="#태그입력" onChange={onChange} value={value} />
         <button>추가</button>
       </TagsForm>
-      <TagList tags={tags} onRemove={onRemove} />
+      <TagList tags={localTags} onRemove={onRemove} />
     </TagsBlock>
   );
 };

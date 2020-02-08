@@ -1,15 +1,15 @@
 import React from "react";
 import Writer from "../write/Writer";
-import Tags from "../write/Tags";
 import Footer from "../write/Footer";
 import HeaderContainer from "../../containers/commons/HeaderContainer";
+import TagsContanier from "../../containers/write/TagsContanier";
 
 const writePage = () => {
   return (
     <>
       <HeaderContainer writer/>
       <Writer />
-      <Tags />
+      <TagsContanier />
       <Footer />
     </>
   );

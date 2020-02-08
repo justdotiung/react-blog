@@ -12,7 +12,6 @@ const EditorContainer = () => {
 
   const onChangeField = useCallback(
     payload => {
-        console.log(payload)
       dispatch(
         changeField(
           payload
