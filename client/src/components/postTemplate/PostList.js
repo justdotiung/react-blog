@@ -60,17 +60,19 @@ const Wrapper = styled.div`
   }
 `;
 
-const Post = () => {
+const Post = ({post}) => {
+  console.log(post.user)
   return (
     <>
       <Wrapper>
-        <StyledLink to="post">
-          <TitleBlock>오늘.</TitleBlock>
+        <StyledLink to={`/@${post.user}/${post._id}`}>
+          <TitleBlock>{post.title}</TitleBlock>
+          {`/@${post.user}/${post._id}`}
           <PostBlock2>
             <div className="content">
-              내용sssssss sdfsdf ssssssssssssssssssss
+              {post.contents}
             </div>
-            <div className="tags">작성자</div>
+            <div className="tags">{post.tags}</div>
           </PostBlock2>
         </StyledLink>
       </Wrapper>
@@ -78,14 +80,11 @@ const Post = () => {
   );
 };
 
-const PlogList = () => {
+const PlogList = ({posts}) => {
+  
   return (
     <BlogListBlock>
-      블로그 리스트
-      <Post />
-      <Post />
-      <Post />
-      <Post />
+      {posts.map(post => (<Post key={post._id} post={post}/>))}
      
     </BlogListBlock>
   );

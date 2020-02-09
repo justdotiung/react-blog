@@ -49,14 +49,14 @@ const StyledFooter = styled.div`
   margin-left: auto;
 `;
 
-const Footer = () => {
+const Footer = ({onSubmit}) => {
   return (
     <>
       <FooterBlock>
         <StyledFooter>
           <ButtonWrapper>
             <Button>취소</Button>
-            <Button black>완료</Button>
+            <Button black onClick={onSubmit}>완료</Button>
           </ButtonWrapper>
         </StyledFooter>
       </FooterBlock>

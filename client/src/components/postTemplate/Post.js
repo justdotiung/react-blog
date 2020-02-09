@@ -48,17 +48,17 @@ const Wrapper = styled.div`
   }
 `;
 
-const Post = () => {
+const Post = ({post}) => {
   return (
     <>
       <Wrapper>
         <Div>
-          <TitleBlock>오늘.</TitleBlock>
+          <TitleBlock>{post.title}</TitleBlock>
           <PostBlock2>
             <div className="content">
-              내용sssssss sdfsdf ssssssssssssssssssss
+              {post.contents}
             </div>
-            <div className="tags">작성자</div>
+            <div className="tags">{post.tags}</div>
           </PostBlock2>
         </Div>
       </Wrapper>

@@ -22,7 +22,10 @@ const login = async (req, res) => {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 7
     });
-    return res.status(200).json(user);
+    const data = user.toJSON();
+    delete data.password;
+
+    return res.status(200).json(data);
   } catch (e) {
     console.log(e);
   }

@@ -14,8 +14,7 @@ function createSaga(req, type) {
 
     try {
       const response = yield call(req, action.payload);
-      console.log(response);
-      console.log(SUCCESS);
+      //console.log(response);
       yield put({
         type: SUCCESS,
         payload: response.data

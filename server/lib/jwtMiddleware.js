@@ -6,12 +6,12 @@ const jwtMiddleware = async (req, res, next) => {
   if (!token) return next();
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.state={};
+    req.state={}; //사용자의 상태를 담아둘 객체를 설정
     req.state.token = {
       _id: decoded._id,
       name: decoded.name
     };
-    console.log('decoded',decoded);
+    //console.log('decoded',decoded);
     const now = Math.floor(Date.now() / 1000);
     if (decoded.exp - now < 60 * 60 * 24) {
       const user = User.findById(decoded._id);

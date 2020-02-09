@@ -13,7 +13,7 @@ const getPostById = (req, res, next) => {
         return res.status(404).json({ error: "존재하지않는 포스트입니다." });
 
       req.state.post = post;
-      console.log(req.state)
+      console.log(req.state);
       return next();
     })
     .catch(e => console.log(e));
@@ -21,7 +21,7 @@ const getPostById = (req, res, next) => {
 
 const checkOwnPost = (req, res, next) => {
   const { token, post } = req.state;
-  
+
   if (token._id !== post.user._id.toString())
     return res.status(403).json({ error: "권한이 없습니다." });
   return next();
@@ -30,24 +30,26 @@ const checkOwnPost = (req, res, next) => {
 const list = (req, res) => {
   const page = parseInt(req.query.page || 1);
 
-  Post.countDocuments().then(num => {
-    console.log(Math.ceil(num / 10));
-    return res.set("last-page", Math.ceil(num / 10));
-  });
-  Post.find()
-    .sort({ writeDate: -1 })
-    .limit(10)
-    .skip((page - 1) * 10)
+  Post.countDocuments()
+    .then(num => {
+      // console.log(Math.ceil(num / 10));
+      res.set("last-page", Math.ceil(num / 10));
+      return Post.find()
+        .sort({ writeDate: -1 })
+        .limit(10)
+        .skip((page - 1) * 10);
+    })
     .then(postList => {
       const data = postList
         .map(post => post.toJSON())
         .map(post => ({
           ...post,
           contents:
-            post.contents.length < 10
+            post.contents.length < 4
               ? post.contents
-              : `${post.contents.slice(0, 10)}...`
+              : `${post.contents.slice(0, 4)}...`
         }));
+
       return res.status(200).json(data);
     })
     .catch(e => {
@@ -73,7 +75,7 @@ const write = (req, res) => {
 const remove = (req, res) => {
   const { id } = req.params;
   Post.findByIdAndRemove(id)
-    .then(() => res.status(204).json({message:"삭제완료"}))
+    .then(() => res.status(204).json({ message: "삭제완료" }))
     .catch(e => console.log(e));
 };
 
@@ -83,9 +85,7 @@ const read = (req, res) => {
 
 const update = (req, res) => {
   const { id } = req.params;
-  const { title, contents, tags } = req.body;
-
-  console.log(tags);
+  const { title, contents } = req.body;
 
   if (!title || !contents)
     return res.status(400).json({ error: "모두 입력해주세요" });

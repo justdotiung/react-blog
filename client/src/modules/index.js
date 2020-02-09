@@ -4,16 +4,18 @@ import auth, { authSaga } from "./auth";
 import loading from './loading';
 import check, { checkSaga } from './check';
 import write, { writeSaga } from './write';
+import posts, {postsSaga} from'./posts';
 
 const rootReducer = combineReducers({
   auth,
   loading,
   check,
-  write
+  write,
+  posts,
 });
 
 export function* rootSaga(){
-  yield all([authSaga(), checkSaga(), writeSaga()]);
+  yield all([authSaga(), checkSaga(), writeSaga(), postsSaga()]);
 };
 
 

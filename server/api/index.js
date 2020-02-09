@@ -4,6 +4,6 @@ const auth = require('./auth');
 const post = require('./post');
 
 router.use('/auth', auth);
-router.use('/post', post);
+router.use('/posts', post);
 
 module.exports = router;

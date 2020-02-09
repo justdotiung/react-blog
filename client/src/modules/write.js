@@ -9,7 +9,7 @@ const initalState = {
   tags: [],
   write: {
     post: null,
-    error: null,
+    postError: null,
   }
 
 };
@@ -36,7 +36,7 @@ export const writePost = createAction(WRITE_POST, ({title, contents, tags})=>({
 const writePostSaga = createSaga(postsAPI.write, WRITE_POST);
 
 export function* writeSaga() {
-  takeLatest(WRITE_POST, writePostSaga);
+  yield takeLatest(WRITE_POST, writePostSaga);
 };
 
 const write = handleActions(
@@ -54,12 +54,12 @@ const write = handleActions(
         error: null,
       }
     }),
-    [WRITE_POST_FAILURE]: (state, { payload: error }) => ({
+    [WRITE_POST_FAILURE]: (state, { payload: postError }) => ({
       ...state,
       write:{
         ...state.write,
         post: null,
-        error
+        postError
       }
     }),
   },
