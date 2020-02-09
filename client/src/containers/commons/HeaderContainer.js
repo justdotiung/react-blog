@@ -5,7 +5,7 @@ import { userLogout } from "../../modules/check";
 import { logout } from "../../modules/auth";
 
 const HeaderContainer = ({...props}) => {
-  console.log(props)
+  // console.log(props)
   const { user } = useSelector(({ check }) => ({ user: check.user }));
   const dispatch = useDispatch();
   const onClick = e => {

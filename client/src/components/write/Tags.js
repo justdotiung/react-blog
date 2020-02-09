@@ -36,8 +36,8 @@ const TagListWrapper = styled.div`
 
 const Tag = styled.div`
   padding-right: 1rem;
-  :hover{
-      cursor: pointer;
+  :hover {
+    cursor: pointer;
   }
 `;
 const TagItem = React.memo(({ tag, onRemove }) => (
@@ -49,31 +49,28 @@ const TagItem = React.memo(({ tag, onRemove }) => (
 
 const TagList = React.memo(({ tags, onRemove }) => (
   <TagListWrapper>
-       {console.log(tags)}
     {tags.map(tag => (
       <TagItem key={tag} tag={tag} onRemove={onRemove} />
     ))}
   </TagListWrapper>
 ));
 
-const Tags = ({currentTags, changeFeild}) => {
+const Tags = ({ currentTags, changeFeild }) => {
   const [value, setValue] = useState("");
-  const [localTags, setLocalTags] = useState([]);
-console.log(currentTags);
+  const [tags, setTags] = useState([]);
+
   const insertTag = useCallback(
     tag => {
-        console.log(localTags)
-        if (!tag) return;
-        if (localTags.includes(tag)) return;
-        setLocalTags([...localTags, tag]);
-        changeFeild(localTags)
-        console.log(localTags)
+      if (!tag) return;
+      if (tags.includes(tag)) return;
+      setTags([...tags, tag]);
+      changeFeild([...tags, tag]);
     },
-    [localTags, changeFeild]
-    );
-    
-    const onChange = useCallback(e => {
-        setValue(e.target.value);
+    [tags]
+  );
+
+  const onChange = useCallback(e => {
+    setValue(e.target.value);
   }, []);
 
   const onSubmit = useCallback(
@@ -81,29 +78,28 @@ console.log(currentTags);
       e.preventDefault();
       insertTag(value.trim());
       setValue("");
-     
     },
     [value, insertTag]
   );
 
   const onRemove = useCallback(
     val => {
-        setLocalTags(localTags.filter(tag => tag !== val));
-      changeFeild(localTags)
+        const currentTags = tags.filter(tag => tag !== val);
+      changeFeild(currentTags);
     },
-    [localTags, changeFeild]
+    [tags, changeFeild]
   );
-useEffect((
-)=> {
-console.log(currentTags);
-},[currentTags])
+  useEffect(() => {
+    setTags(currentTags);
+  }, [currentTags]);
+
   return (
     <TagsBlock>
       <TagsForm onSubmit={onSubmit}>
         <input placeholder="#태그입력" onChange={onChange} value={value} />
         <button>추가</button>
       </TagsForm>
-      <TagList tags={localTags} onRemove={onRemove} />
+      <TagList tags={tags} onRemove={onRemove} />
     </TagsBlock>
   );
 };
