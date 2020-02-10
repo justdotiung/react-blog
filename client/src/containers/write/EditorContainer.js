@@ -20,11 +20,11 @@ const EditorContainer = () => {
     },
     [dispatch]
   );
-//   useEffect(() => {
-//       return () => {
-//           dispatch(initialize());
-//       }
-//   },[dispatch]);
+  useEffect(() => {
+      return () => {
+          dispatch(initialize());
+      }
+  },[dispatch]);
 
   return <Editor onChangeField={onChangeField} title={title} contents={contents} />;
 };

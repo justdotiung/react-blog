@@ -4,13 +4,12 @@ import MainPage from "./components/pages/MainPage";
 import LoginPage from "./components/pages/LoginPage";
 import RegisterPage from "./components/pages/RegisterPage";
 import writePage from "./components/pages/writePage";
-import Post from "./components/postTemplate/Post";
+import PostPage from "./components/pages/PostPage";
 const App = () => {
   return (
     <>
       <Route path="/" component={MainPage} exact/>
-      <Route path="/@:name/:id" component={Post} />
-      <Route path="/login" component={LoginPage} />
+      <Route path="/@:name/:id" component={PostPage} />
       <Route path="/login" component={LoginPage} />
       <Route path="/register" component={RegisterPage } />
       <Route path="/writer" component={writePage } />

@@ -49,16 +49,14 @@ const Wrapper = styled.div`
 `;
 
 const Post = ({post}) => {
+  console.log(post)
   return (
     <>
       <Wrapper>
         <Div>
-          <TitleBlock>{post.title}</TitleBlock>
+          <TitleBlock></TitleBlock>
           <PostBlock2>
-            <div className="content">
-              {post.contents}
-            </div>
-            <div className="tags">{post.tags}</div>
+           ddf
           </PostBlock2>
         </Div>
       </Wrapper>
