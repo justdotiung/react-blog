@@ -12,6 +12,8 @@ const GET_POST = "post/GET_POST";
 const GET_POST_SUCCESS = "post/GET_POST_SUCCESS";
 const GET_POST_FAILURE = "post/GET_POST_FAILURE";
 
+const INIT_POST = "post/INIT_POST";
+
 export const getPost = createAction(GET_POST, id => id); 
 /*dispatch 
 2번재 매개변수가 인자라라면 
@@ -21,6 +23,8 @@ export const getPost = createAction(GET_POST, id => id);
 }
 를 반환
 */
+
+export const initPost = createAction(INIT_POST);
 const getPostSaga = createSaga(postAPI.getPostById, GET_POST);
 
 export function* postSaga() {
@@ -38,7 +42,8 @@ const post = handleActions(
             ...state,
             post: null,
             postError,
-        })
+        }),
+        [INIT_POST]: () => initialState,
     },
     initialState,
 );

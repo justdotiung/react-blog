@@ -50,6 +50,7 @@ const PostBlock = styled.div`
     margin-top: 250px;
     --border : 1px solid black;
     text-align:center;
+  
   }
 `;
 
@@ -68,9 +69,9 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 1rem;
+  margin-left: 2rem;
   & + & {
-    margin-left: 1rem;
+    margin-left: 2rem;
   }
 `;
 
@@ -81,7 +82,8 @@ const PostItem = ({ post }) => {
         <StyledLink to={`/@${post.user.name}/${post._id}`}>
           <TitleBlock>{post.title}</TitleBlock>
           <PostBlock>
-            <div className="writer">{post.user.name}</div>
+            <div className="writer">
+              {post.user.name}</div>
           </PostBlock>
         </StyledLink>
       </Wrapper>

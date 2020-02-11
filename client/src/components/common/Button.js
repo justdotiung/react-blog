@@ -32,10 +32,22 @@ const buttonStyle = css`
       justify-content: center;
       text-align: center;
       width: 100px;
-      font-size:1.2rem;
+      font-size: 1.2rem;
       height: 32px;
-      font-weight:700;
+      font-weight: 700;
     `}
+  ${props =>
+    props.page &&
+    css`
+      color: red;
+      width: 70px;
+      &:disabled {
+        width: 70px;
+        cursor: default;
+        background: white;
+        color: rgb(170, 170, 170);
+      }
+    `}  
 `;
 
 const StyledButton = styled.button`
@@ -48,7 +60,11 @@ const StyledLink = styled(Link)`
 
 const Button = props => {
   return props.to ? (
-    <StyledLink {...props} post={props.post  ? 1 : 0} />
+    <StyledLink
+      {...props}
+      post={props.post ? 1 : 0}
+      page={props.page ? 1 : 0}
+    />
   ) : (
     // <StyledLink {...props} auth={props.authButton ? "true" : "false" }//a태그는 true 값이 props로 설정되는것을 허용하지않음. 그렇기에 삼항연산자를 사용
     <StyledButton {...props} />

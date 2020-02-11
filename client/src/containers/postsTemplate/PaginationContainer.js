@@ -14,11 +14,11 @@ console.log(location);
   }));
 
   if (loading || !posts) return null;
-  const { name, page = 1} = qs.parse(location.search, {
+  const { page = 1} = qs.parse(location.search, {
       ignoreQueryPrefix: true,
   })
 
-  return <Pagination lastPage={lastPage}  name={name} page={parseInt(page, 10)} />;
+  return <Pagination lastPage={lastPage} page={parseInt(page, 10)} />;
 };
 
 export default React.memo(PaginationContainer);

@@ -15,10 +15,10 @@ const PostListContainer = ({ location }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const { page = 1, name } = qs.parse(location.search, {
+    const { page = 1 } = qs.parse(location.search, {
       ignoreQueryPrefix: true
     });
-    dispatch(getList({ page, name }));
+    dispatch(getList({ page }));
   }, [dispatch, location.search, lastPage ]);
   
   console.log(location);
