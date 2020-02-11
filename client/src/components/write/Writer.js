@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import ScreenHelper from "../common/ScreenHelper";
-import Editor from "../quilleditor/Editor";
 import EditorContainer from '../../containers/write/EditorContainer';
 
 

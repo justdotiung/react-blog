@@ -13,12 +13,13 @@ function createSaga(req, type) {
     yield put(start());
 
     try {
-      console.log(action.payload)
       const response = yield call(req, action.payload);
-      //console.log(response);
+      // console.log(action.payload)
+      // console.log(response);
       yield put({
         type: SUCCESS,
-        payload: response.data
+        payload: response.data,
+        meta: response, // respose에 해당하는 데이터를 넣어준다.
       });
     } catch (e) { 
      // console.log(e);

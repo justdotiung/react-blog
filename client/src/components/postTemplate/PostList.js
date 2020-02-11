@@ -41,9 +41,8 @@ const PostBlock = styled.div`
   top: -150px;
   position: relative;
   opacity: 0.7;
-  height: 100%;
 
-  .tags {
+  .writer {
     width: 50px;
     height: 50px;
     margin: auto;
@@ -58,7 +57,7 @@ const StyledLink = styled(Link)`
   height: 300px;
   width: 300px;
   &:hover {
-    transform: scale(1.01);
+    transform: scale(1.05);
     transition: all 0.1s ease-in-out;
     border-radius: 5px;
     border: 1px solid black;
@@ -75,15 +74,14 @@ const Wrapper = styled.div`
   }
 `;
 
-const Post = ({ post }) => {
-  console.log(post.user);
+const PostItem = ({ post }) => {
   return (
     <>
       <Wrapper>
         <StyledLink to={`/@${post.user.name}/${post._id}`}>
           <TitleBlock>{post.title}</TitleBlock>
           <PostBlock>
-            <div className="tags">{post.user.name}</div>
+            <div className="writer">{post.user.name}</div>
           </PostBlock>
         </StyledLink>
       </Wrapper>
@@ -91,12 +89,14 @@ const Post = ({ post }) => {
   );
 };
 
-const PlogList = ({ posts }) => {
+const PlogList = ({ posts, loading }) => {
+
+  if(loading || !posts) return null;
   return (
     <BlogListBlock>
       <div className="max-item">
         {posts.map(post => (
-          <Post key={post._id} post={post} />
+          <PostItem key={post._id} post={post} />
         ))}
       </div>
     </BlogListBlock>

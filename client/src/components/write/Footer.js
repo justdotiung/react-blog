@@ -1,7 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import ScreenHelper from "../common/ScreenHelper";
-import Modal from "../common/Modal";
 import ModalContainer from "../../containers/commons/ModalContainer";
 
 const FooterBlock = styled(ScreenHelper)`

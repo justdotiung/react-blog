@@ -3,11 +3,11 @@ import Footer from "../../components/write/Footer";
 import { useSelector, useDispatch } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { writePost } from "../../modules/write";
-import { initialize, toggleChange } from "../../modules/modal";
+import {  toggleChange } from "../../modules/modal";
 
 const FooterContainer = ({ history }) => {
-  const { title, contents, tags, postError, post,  } = useSelector(
-    ({ write, modal }) => ({
+  const { title, contents, tags, postError, post } = useSelector(
+    ({ write }) => ({
       title: write.title,
       contents: write.contents,
       tags: write.tags,
@@ -19,6 +19,7 @@ const FooterContainer = ({ history }) => {
 
   const onSubmit = e => {
     e.preventDefault();
+    console.log(!title);
     dispatch(writePost({ title, contents, tags }));
   };
 
@@ -33,10 +34,9 @@ const FooterContainer = ({ history }) => {
       history.push(`/@${user.name}/${_id}`);
     }
     if (postError) {
-      console.log(1)
       dispatch(toggleChange());
     }
-  }, [post, history, postError]);
+  }, [post, history, postError, dispatch]);
 
   return (
     <Footer onSubmit={onSubmit} onCancel={onCancel} postError={postError} />

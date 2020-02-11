@@ -1,5 +1,5 @@
-import React, { useState, useCallback, useRef, useEffect } from "react";
-import styled, { css } from "styled-components";
+import React, { useEffect } from "react";
+import styled from "styled-components";
 import ScreenHelper from "./ScreenHelper";
 
 const ModalBlock = styled(ScreenHelper)`
@@ -51,8 +51,6 @@ const Button = styled.button`
 
 const Modal = ({ toggle, onClick }) => {
   useEffect(() => {
-    console.log(toggle);
-  
   },[]);
   return (
     <>

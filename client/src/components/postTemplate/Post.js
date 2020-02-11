@@ -1,66 +1,60 @@
 import React from "react";
 import styled from "styled-components";
+import ScreenHelper from "../common/ScreenHelper";
+
+const PostBlock = styled(ScreenHelper)`
+  padding-left: 1rem;
+  padding-right: 1rem;
+`;
 
 const TitleBlock = styled.div`
-  top: 25%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  z-index: 1;
-  opacity: 0.8;
+  font-size: 2rem;
+  outline: none;
+  padding: 0.5rem;
+  /* text-align: center; */
+  border: none;
+  border-bottom: 1px solid #ccc;
+  margin: 2rem 0;
   width: 100%;
-  height: 150px;
-  font-size: 3.5rem;
-  font-weight: 700;
-  color: #aad8f2;
-  border: 0.1rem solid #aad8f2;
 `;
 
-const PostBlock2 = styled.div`
-  border-radius: 7px;
-  top: -150px;
-  position: relative;
-  opacity: 0.7;
-  height: 100%;
- 
-  .tags {
-    bottom: 0px;
-  }
+const ContentsBlock = styled.div`
+  min-height: 320px;
+  font-size: 1.125rem;
+  line-height: 1.5;
 `;
 
-const Div = styled.div`
-  height: 300px;
-  width: 300px;
-  &:hover {
-      transform: scale(1.01);
-      transition: all 0.1s ease-in-out;
-      border-radius: 5px;
-    }
-    `;
+const TagItem = ({ tag }) => (
+  <>
+    <span>#</span>
+    <span>{tag}</span>
+  </>
+);
 
-const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  & + & {
-    margin-top: 1rem;
-  }
-`;
+const TagList = ({ tags }) => (
+  <>
+    
+    {tags.map(tag => (
+      <TagItem key={tag} tag={tag} />
+    ))}
+  </>
+);
 
-const Post = ({post}) => {
-  console.log(post)
+const Post = ({ post, loading, postError }) => {
+  if(postError) return <div>{postError}</div>
+  if (loading || !post) return null;
+  // 여기서 비동기 처리가 되기때문에 post를 가져오는 때를 모르기때문에 조건 먼저 해줘야 한다.
+  const { title, contents, tags, user, writeDate  } = post;
+  console.log(post);
   return (
-    <>
-      <Wrapper>
-        <Div>
-          <TitleBlock></TitleBlock>
-          <PostBlock2>
-           ddf
-          </PostBlock2>
-        </Div>
-      </Wrapper>
-    </>
+    <PostBlock>
+      <>
+        <div>여기는 작성자 {user.name} 그리고 날짜 {new Date(writeDate).toLocaleDateString()}</div>
+        <TitleBlock>{title}</TitleBlock>
+        <ContentsBlock dangerouslySetInnerHTML={{__html: contents}}/>
+        <TagList tags={tags}></TagList>
+      </>
+    </PostBlock>
   );
 };
 

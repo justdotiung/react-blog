@@ -66,7 +66,7 @@ const Tags = ({ currentTags, changeFeild }) => {
       setTags([...tags, tag]);
       changeFeild([...tags, tag]);
     },
-    [tags]
+    [tags, changeFeild]
   );
 
   const onChange = useCallback(e => {

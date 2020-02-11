@@ -56,7 +56,7 @@ const RegisterFromContainer = ({
       history.push('/');
     }
     
-  },[user,history,]);
+  },[user, history, userCheck]);
   
   useEffect(() => {
     initform("register");

@@ -1,21 +1,28 @@
 import React, { useEffect } from "react";
-import PostList from '../../components/postTemplate/PostList';
+import PostList from "../../components/postTemplate/PostList";
 import { useSelector, useDispatch } from "react-redux";
 import { getList } from "../../modules/posts";
-const PostListContainer = () => {
-    const { posts } = useSelector(({posts}) => ({
-        posts: posts.posts
-    }));
-    const dispatch = useDispatch();
+import { withRouter } from "react-router-dom";
+import qs from "qs";
 
-    useEffect(() => {
-        dispatch(
-            getList()
-        );
-        console.log(posts);
-    },[dispatch]);
+const PostListContainer = ({ location }) => {
+  
+  const { posts, loading, lastPage } = useSelector(({ posts, loading,  }) => ({
+    posts: posts.posts,
+    loading: loading.loading,
+    lastPage : posts.lastPage
+  }));
+  const dispatch = useDispatch();
 
-    return <PostList posts={posts}/>;
+  useEffect(() => {
+    const { page = 1, name } = qs.parse(location.search, {
+      ignoreQueryPrefix: true
+    });
+    dispatch(getList({ page, name }));
+  }, [dispatch, location.search, lastPage ]);
+  
+  console.log(location);
+  return <PostList posts={posts} loading={loading} lastPage={lastPage} />;
 };
 
-export default PostListContainer;
+export default withRouter(PostListContainer);

@@ -26,9 +26,6 @@ const QuillWrapper = styled.div`
     font-size: 1.125rem;
     line-height: 1.5;
   }
-  border: none;
-  .ql-editor.ql-blank {
-  }
 `;
 
 const Editor = ({ onChangeField, title, contents }) => {
