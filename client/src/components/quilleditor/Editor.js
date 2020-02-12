@@ -45,16 +45,18 @@ const Editor = ({ onChangeField, title, contents }) => {
     const quill = quillInstance.current;
     quill.on("text-change", (delta, oldDelta, source) => {
       if (source === "user") {
-        onChangeField({ key: "contents", value: document.querySelector(".ql-editor").innerHTML });
+        onChangeField({ key: "contents", value: quillInstance.current.root.innerHTML });
       }
     });
   }, [onChangeField]);
 
   const mounted = useRef(false);
+
   useEffect(() => {
     if (mounted.current) return;
     mounted.current = true;
-    quillInstance.current.root.innerHTML = contents;
+    //console.log(quillInstance.current); // quill객체 접근
+    quillInstance.current.root.innerHTML = contents;//document.querySelector(".ql-editor").innerHTML 사용해도되지만 document 지양
   },[contents]);
 
   const onChangeTitle = e => {

@@ -54,11 +54,12 @@ export const updatePost = createAction(
 const writePostSaga = createSaga(postsAPI.write, WRITE_POST);
 const updatePostSaga = createSaga(postsAPI.update, UPDATE_POST);
 
+
 export function* writeSaga() {
   yield takeLatest(WRITE_POST, writePostSaga);
   yield takeLatest(UPDATE_POST, updatePostSaga);
 }
-
+ 
 const write = handleActions(
   {
     [CHANGE_FIELD]: (state, { payload: { key, value } }) => ({

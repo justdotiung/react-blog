@@ -27,7 +27,7 @@ const ModalBox = styled.div`
   align-items: center;
   .span {
     margin: auto;
-    font-size: 1.9rem;
+    font-size: 1.5rem;
   }
   .line {
     border-bottom: 1px solid #ccc;
@@ -49,7 +49,7 @@ const Button = styled.button`
   }
 `;
 
-const Modal = ({ toggle, onClick }) => {
+const Modal = ({ toggle, onToggle, message }) => {
   useEffect(() => {
   },[]);
   return (
@@ -57,9 +57,9 @@ const Modal = ({ toggle, onClick }) => {
       {toggle && (
         <ModalBlock>
           <ModalBox>
-            <div className="span">내용을 적어주세요</div>
+            <div className="span">{message}</div>
             <div className="line" />
-            <Button onClick={onClick}>확인</Button>
+            <Button onClick={onToggle}>확인</Button>
           </ModalBox>
         </ModalBlock>
       )}

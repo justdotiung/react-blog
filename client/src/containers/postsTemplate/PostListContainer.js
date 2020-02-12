@@ -19,9 +19,8 @@ const PostListContainer = ({ location }) => {
       ignoreQueryPrefix: true
     });
     dispatch(getList({ page }));
-  }, [dispatch, location.search, lastPage ]);
+  }, [dispatch, location.search ]);
   
-  console.log(location);
   return <PostList posts={posts} loading={loading} lastPage={lastPage} />;
 };
 

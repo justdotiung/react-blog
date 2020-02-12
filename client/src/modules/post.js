@@ -1,7 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import { takeLatest } from 'redux-saga/effects';
 import createSaga from '../lib/createSaga';
-import * as postAPI from '../lib/api/posts';
+import * as postsAPI from '../lib/api/posts';
 
 const initialState = {
     post: null,
@@ -14,6 +14,10 @@ const GET_POST_FAILURE = "post/GET_POST_FAILURE";
 
 const INIT_POST = "post/INIT_POST";
 
+const REMOVE_POST = 'write/REMOVE_POST';
+const REMOVE_POST_SUCCESS = 'write/REMOVE_POST_SUCCESS';
+const REMOVE_POST_FAILURE = 'write/REMOVE_POST_FAILURE';
+
 export const getPost = createAction(GET_POST, id => id); 
 /*dispatch 
 2번재 매개변수가 인자라라면 
@@ -25,8 +29,8 @@ export const getPost = createAction(GET_POST, id => id);
 */
 
 export const initPost = createAction(INIT_POST);
-const getPostSaga = createSaga(postAPI.getPostById, GET_POST);
 
+const getPostSaga = createSaga(postsAPI.getPostById, GET_POST);
 export function* postSaga() {
     yield takeLatest(GET_POST, getPostSaga);
 };

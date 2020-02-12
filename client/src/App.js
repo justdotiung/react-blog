@@ -5,14 +5,19 @@ import LoginPage from "./components/pages/LoginPage";
 import RegisterPage from "./components/pages/RegisterPage";
 import writePage from "./components/pages/writePage";
 import PostPage from "./components/pages/PostPage";
+import { Helmet } from "react-helmet-async";
+
 const App = () => {
   return (
     <>
-      <Route path="/" component={MainPage} exact/>
+      <Helmet>
+        <title>BLOG</title>
+      </Helmet>
+      <Route path="/" component={MainPage} exact />
       <Route path="/@:name/:id" component={PostPage} />
       <Route path="/login" component={LoginPage} />
-      <Route path="/register" component={RegisterPage } />
-      <Route path="/writer" component={writePage } />
+      <Route path="/register" component={RegisterPage} />
+      <Route path="/writer" component={writePage} />
     </>
   );
 };

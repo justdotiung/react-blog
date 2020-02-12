@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import ScreenHelper from "../common/ScreenHelper";
+import { Helmet } from "react-helmet-async";
 
 const PostBlock = styled(ScreenHelper)`
   padding-left: 1rem;
@@ -45,10 +46,12 @@ const Post = ({ post, loading, postError, actionButtons, userInfo }) => {
   if (loading || !post) return null;
   // 여기서 비동기 처리가 되기때문에 post를 가져오는 때를 모르기때문에 조건 먼저 해줘야 한다.
   const { title, contents, tags, user, writeDate  } = post;
-  console.log(user);
-  console.log(userInfo);
+
   return (
   <>
+    <Helmet>
+      <title>{title}</title>
+    </Helmet>
     <PostBlock>
         <div>여기는 작성자 {user.name} 그리고 날짜 {new Date(writeDate).toLocaleDateString()}</div>
         <TitleBlock>{title}</TitleBlock>

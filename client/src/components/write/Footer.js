@@ -1,7 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import ScreenHelper from "../common/ScreenHelper";
-import ModalContainer from "../../containers/commons/ModalContainer";
 
 const FooterBlock = styled(ScreenHelper)`
   position: fixed;
@@ -52,16 +51,16 @@ const StyledFooter = styled.div`
   margin-left: auto;
 `;
 
-const Footer = ({ onSubmit, postError, onCancel }) => {
+const Footer = ({ onSubmit, onCancel, isEdit, modal }) => {
   return (
     <>
-      {postError && <ModalContainer />}
+      {modal}
       <FooterBlock>
         <StyledFooter>
           <ButtonWrapper>
             <Button onClick={onCancel}>취소</Button>
             <Button black onClick={onSubmit}>
-              완료
+              {isEdit ? "수정" : "완료"}
             </Button>
           </ButtonWrapper>
         </StyledFooter>

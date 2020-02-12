@@ -97,7 +97,7 @@ const register = async (req, res) => {
 
 const check = (req, res) => {
   const { token } = req.state;
-  console.log(token);
+  //console.log(token);
 
   if (!token) {
     return res.status(401).json({ error: "error" });

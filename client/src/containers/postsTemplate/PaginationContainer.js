@@ -2,11 +2,11 @@ import React from "react";
 import Pagination from "../../components/postTemplate/Pagination";
 import { useSelector } from "react-redux";
 import qs from "qs";
-import {useLocation} from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const PaginationContainer = () => {
   const location = useLocation();
-console.log(location);
+  // console.log(location);
   const { lastPage, loading, posts } = useSelector(({ posts, loading }) => ({
     lastPage: posts.lastPage,
     posts: posts.posts,
@@ -14,9 +14,9 @@ console.log(location);
   }));
 
   if (loading || !posts) return null;
-  const { page = 1} = qs.parse(location.search, {
-      ignoreQueryPrefix: true,
-  })
+  const { page = 1 } = qs.parse(location.search, {
+    ignoreQueryPrefix: true
+  });
 
   return <Pagination lastPage={lastPage} page={parseInt(page, 10)} />;
 };

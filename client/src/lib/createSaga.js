@@ -15,14 +15,14 @@ function createSaga(req, type) {
     try {
       const response = yield call(req, action.payload);
       // console.log(action.payload)
-      // console.log(response);
+      // console.log(req);
       yield put({
         type: SUCCESS,
         payload: response.data,
         meta: response, // respose에 해당하는 데이터를 넣어준다.
       });
     } catch (e) { 
-     // console.log(e);
+     console.log(e);
       yield put({
         type: FAILURE,
         error: true,
