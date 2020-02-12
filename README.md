@@ -11,7 +11,8 @@
 삭제 <br />
 ![write](./image/delete.gif)
 
-몽고db를 연동했습니다. 
+node.js를 사용, 몽고db를 연동했습니다. 
+
 
 
 
