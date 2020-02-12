@@ -4,4 +4,11 @@
 
 ![write](./image/write.gif)
 
+![write](./image/edit.gif)
+
+![write](./image/delet.gif)
+
+몽고db를 연동했습니다. 
+
+
 
