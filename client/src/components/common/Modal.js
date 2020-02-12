@@ -6,6 +6,7 @@ const ModalBlock = styled(ScreenHelper)`
   background: #ccc;
   position: absolute;
   top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   opacity: 0.8;
@@ -33,6 +34,19 @@ const ModalBox = styled.div`
     border-bottom: 1px solid #ccc;
     width: 100%;
   }
+  .button{
+    width: 100%;
+    display:flex;
+    flex-direction:row;
+   
+    button{
+      width:50px;
+      margin: auto;
+      &:hover{
+        color:gray;
+      }
+    }
+  }
 `;
 
 const Button = styled.button`
@@ -49,9 +63,8 @@ const Button = styled.button`
   }
 `;
 
-const Modal = ({ toggle, onToggle, message }) => {
-  useEffect(() => {
-  },[]);
+const Modal = ({ toggle, onToggle, message, onCancel }) => {
+  useEffect(() => {}, []);
   return (
     <>
       {toggle && (
@@ -59,7 +72,10 @@ const Modal = ({ toggle, onToggle, message }) => {
           <ModalBox>
             <div className="span">{message}</div>
             <div className="line" />
-            <Button onClick={onToggle}>확인</Button>
+            <div className="button">
+              {onCancel && <Button onClick={onCancel}>취소</Button>}
+              <Button onClick={onToggle}>확인</Button>
+            </div>
           </ModalBox>
         </ModalBlock>
       )}
