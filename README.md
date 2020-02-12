@@ -2,12 +2,13 @@
 
 리덕스와 리덕스 사가도 함께 이용했습니다.
 
-새글작성
+새글작성<br />
 ![write](./image/write.gif)
 
-글수정
+글수정<br />
 ![write](./image/edit.gif)
-삭제 
+
+삭제 <br />
 ![write](./image/delete.gif)
 
 몽고db를 연동했습니다. 
