@@ -3,13 +3,12 @@ import styled from "styled-components";
 import ScreenHelper from "./ScreenHelper";
 
 const ModalBlock = styled(ScreenHelper)`
-  background: #ccc;
+  background: rgba(0,0,0,0.25);
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.8;
   z-index: 3;
   display: flex;
   justify-content: center;
@@ -17,6 +16,7 @@ const ModalBlock = styled(ScreenHelper)`
 `;
 
 const ModalBox = styled.div`
+ opacity: 1;
   position: fixed;
   width: 320px;
   height: 100px;

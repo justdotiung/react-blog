@@ -61,11 +61,10 @@ const TagList = ({ tags }) => (
 );
 
 const Post = ({ post, loading, postError, actionButtons, userInfo }) => {
-  if (postError) return <div>{postError}</div>;
+  // if (postError) return <div>{postError}</div>;
   if (loading || !post) return null;
   // 여기서 비동기 처리가 되기때문에 post를 가져오는 때를 모르기때문에 조건 먼저 해줘야 한다.
   const { title, contents, tags, user, writeDate } = post;
-
   return (
     <>
       <Helmet>
@@ -75,7 +74,7 @@ const Post = ({ post, loading, postError, actionButtons, userInfo }) => {
         <HeaderDiv>
           by <span>{user.name}</span>
           <span>{new Date(writeDate).toLocaleDateString()}</span>
-          <span>{user._id === userInfo._id ? actionButtons : undefined}</span>
+          <span>{user && userInfo && user._id === userInfo._id ? actionButtons : undefined}</span>
         </HeaderDiv>
         <TitleBlock>{title}</TitleBlock>
         <ContentsBlock dangerouslySetInnerHTML={{ __html: contents }} />

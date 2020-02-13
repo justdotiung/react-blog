@@ -48,7 +48,6 @@ const PostBlock = styled.div`
     margin: auto;
     margin-right: 0px;
     margin-top: 250px;
-    --border : 1px solid black;
     text-align:center;
   
   }

@@ -51,10 +51,15 @@ const StyledFooter = styled.div`
   margin-left: auto;
 `;
 
+const Space = styled.div`
+  height: 4rem;
+`;
+
 const Footer = ({ onSubmit, onCancel, isEdit, modal }) => {
   return (
     <>
       {modal}
+      <Space />
       <FooterBlock>
         <StyledFooter>
           <ButtonWrapper>
