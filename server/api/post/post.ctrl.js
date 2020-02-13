@@ -34,25 +34,23 @@ const santizeOption = {
 
 const getPostById = (req, res, next) => {
   const { id } = req.params;
-  //console.log(id);
   if (!ObjectId.isValid(id))
     return res.status(400).json({ error: "잘못된 포스트 번호 입니다." });
   Post.findById(id)
-    .then(post => {
+    .then((post) => {
       if (!post)
         return res.status(404).json({ error: "존재하지않는 포스트입니다." });
-
-      req.state.post = post;
-      //console.log(req.state);
+       req.post = post;
       return next();
     })
     .catch(e => console.log(e));
 };
 
 const checkOwnPost = (req, res, next) => {
-  const { token, post } = req.state;
+  const { token } = req.state;
+  const { user } = req.post;
 
-  if (token._id !== post.user._id.toString())
+  if (token._id !== user._id.toString())
     return res.status(403).json({ error: "권한이 없습니다." });
   return next();
 };
@@ -120,7 +118,7 @@ const remove = (req, res) => {
 };
 
 const read = (req, res) => {
-  return res.status(200).json(req.state.post);
+  return res.status(200).json(req.post);
 };
 
 const update = (req, res) => {
