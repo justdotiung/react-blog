@@ -15,13 +15,11 @@ const upload = multer({
       cb(null, 'public/uploads/');
     },
     filename: function (req, file, cb) {
-      console.log(file);
+      // console.log(file);
       cb(null,` ${new Date().valueOf()}_${file.originalname}`);
     }
   }),
 });
-
-
 
 const mongoose = require("mongoose");
 // req.body가 undefined 이기때문에 바디파서 해줘야한다.
@@ -54,7 +52,6 @@ app.post('/uploads', upload.single('img'), (req, res) => {
 })
 
 app.use("/api", api);
-
 
 app.listen(port, () => {
   console.log(`server is litening at localhost${port}`);
