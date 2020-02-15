@@ -24,4 +24,4 @@ const PostListContainer = ({ location }) => {
   return <PostList posts={posts} loading={loading} lastPage={lastPage} />;
 };
 
-export default withRouter(PostListContainer);
+export default withRouter(React.memo(PostListContainer));

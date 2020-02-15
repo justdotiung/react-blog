@@ -96,4 +96,4 @@ export default connect(
     register,
     userCheck
   }
-)(withRouter(RegisterFromContainer));
+)(React.memo(withRouter(RegisterFromContainer)));

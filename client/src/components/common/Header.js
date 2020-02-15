@@ -43,9 +43,10 @@ const StyledLink = styled(Link)`
   align-items: center;
 `;
 
-const Header = ({ user, onClick, ...props}) => {
+const Header = ({ user, onClick, modal, ...props}) => {
   return (
     <>
+      {modal}
       <HeaderBlock>
         <StyledHeader>
           <StyledLink to="/">BLOG</StyledLink>

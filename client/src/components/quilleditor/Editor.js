@@ -34,17 +34,10 @@ const Editor = ({ onChangeField, title, contents }) => {
   const quillElement = useRef(null); // Quill을 적용할 DivElement를 설정
   const quillInstance = useRef(null); // Quill 인스턴스를 설정
   const toolbar = useRef("#toolbar");
-  const fileEl = useRef(null);
 
   //이미지 핸들러 적용
   const imageHandler = () => {
-    // const fileImage = fileEl.current;
-    // fileImage.click();
-    // fileImage.onchange = function(e){
-    //   const file = e.target.files;
-    //   const fd = new FormData();
-    //   console.log(file)
-
+  
     const input = document.createElement("input");
     input.setAttribute("type", "file");
     input.click();
@@ -84,7 +77,6 @@ const Editor = ({ onChangeField, title, contents }) => {
     const quill = quillInstance.current;
     quill.on("text-change", (delta, oldDelta, source) => {
       if (source === "user") {
-        console.log(delta);
         onChangeField({
           key: "contents",
           value: quillInstance.current.root.innerHTML
@@ -93,7 +85,6 @@ const Editor = ({ onChangeField, title, contents }) => {
     });
     quill.on("selection-change", (delta, oldDelta, source) => {
       if (source === "user") {
-        console.log(delta);
         onChangeField({
           key: "contents",
           value: quillInstance.current.root.innerHTML

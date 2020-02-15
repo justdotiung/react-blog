@@ -46,7 +46,6 @@ const LoginFormContainer = ({
     }
     if (auth) {
       userCheck();
-      console.log(check);
       if (check) {
         localStorage.setItem("user", JSON.stringify(check));
         setError(null);
@@ -80,4 +79,4 @@ export default connect(
     login,
     userCheck
   }
-)(withRouter(LoginFormContainer));
+)(withRouter(React.memo(LoginFormContainer)));

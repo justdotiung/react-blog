@@ -67,4 +67,4 @@ const FooterContainer = ({ history }) => {
   );
 };
 
-export default withRouter(FooterContainer);
+export default React.memo(withRouter(FooterContainer));

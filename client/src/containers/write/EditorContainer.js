@@ -29,4 +29,4 @@ const EditorContainer = () => {
   return <Editor onChangeField={onChangeField} title={title} contents={contents} />;
 };
 
-export default EditorContainer;
+export default React.memo(EditorContainer);

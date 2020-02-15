@@ -10,7 +10,6 @@ const TagsContanier = () => {
   const dispatch = useDispatch();
 
   const changeFeild = nextTag => {
-      console.log(nextTag);
     dispatch(
       changeField({
         key: "tags",
@@ -22,4 +21,4 @@ const TagsContanier = () => {
   return <Tags changeFeild={changeFeild} currentTags={tags} />;
 };
 
-export default TagsContanier;
+export default React.memo(TagsContanier);
