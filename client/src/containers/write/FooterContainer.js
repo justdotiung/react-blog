@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Footer from "../../components/write/Footer";
 import { useSelector, useDispatch } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -21,7 +21,7 @@ const FooterContainer = ({ history }) => {
   const [ toggle, setToggle] = useState(false);
   const [ message, setMessage] = useState('');
   
-  const onSubmit = e => {
+  const onSubmit = useCallback( e => {
     e.preventDefault();
     if (updatePostId) {
       dispatch(updatePost({ title, contents, tags, id: updatePostId }));
@@ -39,15 +39,15 @@ const FooterContainer = ({ history }) => {
       }
       dispatch(writePost({ title, contents, tags }));
     }
-  };
+  },[dispatch]);
 
-  const onToggle = () => {
+  const onToggle =useCallback( () => {
     setToggle(false);
-  }
-  const onCancel = e => {
+  },[toggle]);
+  const onCancel = useCallback(e => {
     e.preventDefault();
     history.goBack();
-  };
+  },[history]);
 
   useEffect(() => {
     if (post) {
@@ -67,4 +67,4 @@ const FooterContainer = ({ history }) => {
   );
 };
 
-export default React.memo(withRouter(FooterContainer));
+export default withRouter(React.memo(FooterContainer));

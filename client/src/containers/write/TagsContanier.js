@@ -1,12 +1,12 @@
 import React from "react";
 import Tags from "../../components/write/Tags";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import { changeField } from "../../modules/write";
 
 const TagsContanier = () => {
   const { tags } = useSelector(({write}) => ({
       tags: write.tags
-  }) );
+  }),shallowEqual );
   const dispatch = useDispatch();
 
   const changeFeild = nextTag => {

@@ -93,8 +93,8 @@ const Editor = ({ onChangeField, title, contents }) => {
     });
   }, [onChangeField]);
 
+  // componentDidUpdate 만 실행, componentDidMount에서는 X
   const mounted = useRef(false);
-
   useEffect(() => {
     if (mounted.current) return;
     mounted.current = true;
